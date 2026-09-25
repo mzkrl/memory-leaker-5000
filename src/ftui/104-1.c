@@ -14,7 +14,6 @@ int avgNilai(){
     float avg= (nilai[0]+nilai[1]+nilai[2])/3;
     return avg;
 }
-
 int main(){
     writeName();
     float avg=avgNilai();
@@ -26,4 +25,3 @@ int main(){
     }
     return 0;
 }
-
