@@ -1,0 +1,13 @@
+# .clangd
+If:
+  PathMatch: .*\.c$
+CompileFlags:
+  Compiler: gcc
+  Add: [-xc, -std=c17]
+
+---
+If:
+  PathMatch: .*\.(cpp|cc|cxx|hpp)$
+CompileFlags:
+  Compiler: g++
+  Add: [-xc++, -std=c++20]
