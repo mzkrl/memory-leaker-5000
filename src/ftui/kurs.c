@@ -32,7 +32,7 @@ double parser(double num){ //baru, fungsi buat parsing num hasil dari hitung tot
         putchar(nums[digit]); //print digit
     }
     printf(".%02d", (int)(total % 100));
-    return num;
+    return num; // return num ga kepake si wkwkwk, gatau biar return bisa balikin semua di atas ni. keknya void aja yak.
 }
 int mem(){
     printf("Data: ");
