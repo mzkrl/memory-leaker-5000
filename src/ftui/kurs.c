@@ -1,8 +1,9 @@
 #include <stdio.h>
-float usd = 17975, pound = 23792, sgd = 14038, euro = 20323, idr, cost, shipCost; //all ke idr
+#include <string.h>
+double usd = 17975, pound = 23792, sgd = 14038, euro = 20323, idr, cost, shipCost; //all ke idr
 float dat[100];
-int c, idx, geser, N, n, ongkir;
-char *nm[] = {"", "USD", "Pound", "SGD", "Euro"};
+int c, idx, geser, N, n, ongkir, len;
+static const char *const nm[] = {"", "USD", "Pound", "SGD", "Euro"};
 
 int input(const char *message, int *value){
     int ch;
@@ -17,10 +18,27 @@ int choice(){
     input("\ncurrency apa?\n0. exit\n1. USD\n2. Pound\n3. SGD\n4. Euro\n5. show memori\n6. hapus memori\nchoice: ", &c);
     return c;
 }
+double parser(double num){ //baru, fungsi buat parsing num hasil dari hitung total.
+    char nums[25];
+    int digit;
+    long long total = (long long)(num * 100 + 0.5);
+    sprintf(nums, "%lld", total / 100);
+    len = strlen(nums); //hitun panjang digit, function dari string.h. contoh: 123 = 3 digit (len=3)
+    printf("Rp.");
+    for (digit = 0; digit < len; digit++){ //looping digit,
+        if (digit > 0 && (len - digit) % 3 == 0){ // setiap digit ke-3 dari belakang, print titik. contoh: 1234567 = 1.234.567
+            putchar('.');
+        }
+        putchar(nums[digit]); //print digit
+    }
+    printf(".%02d", (int)(total % 100));
+    return num;
+}
 int mem(){
     printf("Data: ");
     for (idx = 0; idx < n; idx++){
-        printf("%.2f ", dat[idx]);
+        parser(dat[idx]); //parser ni void function, jadi langsung print
+        printf(" ");// akhirnya print spasi.
     }
     return printf("\n");
 }
@@ -55,8 +73,9 @@ void hitung(int kode){
         ongkir = 0;
     }
     shipCost = ongkir;
-    cost = idr + shipCost;
-    printf("Total = %.2f\n", cost);
+    printf("Total = ");
+    cost = parser(idr + shipCost); // diff: sekarang hasil hitung udah di parsing, hasil contoh "Rp. xx.xxx.xx". liat function parser() baru di atas.
+    printf("\n");
     simpan(cost);
 }
 int main(){
